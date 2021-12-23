@@ -135,7 +135,7 @@ class Character_Recognition():
 
     def classify(input):
         #Gets an image as input and return character---------------------------
-
+        
         #Tests to check input dimensions
         if((input.shape[-1] != 28) or (input.shape[-2] != 28)):
             print("CNN ERROR: Image dimensions wrong. It should be 28x28, it is {}x{}".format(input.shape[-2], input.shape[-1]))
@@ -153,6 +153,7 @@ class Character_Recognition():
 
         #Gets cnn prediction
         model.eval()
+        input = F.pad(input, (1, 1, 1, 1))
         output = model(input.float())
         prediction = int(T.max(output.data, 1)[1].numpy())
 
